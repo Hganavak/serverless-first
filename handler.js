@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports.hello = async event => {
+
+  // Use this code if you want to use the LAMBDA-PROXY integration
+  // This allows you to control API-Gateway within your Lambda functionk
   return {
     statusCode: 200,
     body: JSON.stringify(
