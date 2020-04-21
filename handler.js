@@ -2,9 +2,26 @@
 
 module.exports.hello = async event => {
 
+  // If its a POST request and it contains a body
+  if(event.httpMethod === "POST" && event.body) {
+
+    let json = JSON.parse(event.body);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: 'Hi, you sent me this:',
+          object: json
+        },
+        null,
+        2
+      ),
+    };
+  }
+
   // If people have passed a name URL param
   if(event.queryStringParameters && event.queryStringParameters.name) {
-
     return {
       statusCode: 200,
       body: JSON.stringify(
