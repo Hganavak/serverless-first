@@ -1,0 +1,28 @@
+{
+  "name": "serverless-first",
+  "version": "1.0.0",
+  "description": "Sams initial Serverless Framework tests",
+  "main": "handler.js",
+  "scripts": {
+    "start": "./node_modules/.bin/serverless offline -s dev",
+    "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev",
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.1.2",
+    "serverless": "1.12.1",
+    "serverless-offline": "^3.33.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hganavak/serverless-first.git"
+  },
+  "author": "Sam Kavanagh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hganavak/serverless-first/issues"
+  },
+  "homepage": "https://github.com/Hganavak/serverless-first#readme"
+}
