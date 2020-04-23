@@ -3,15 +3,16 @@
 module.exports.hello = async event => {
 
   // If its a POST request and it contains a body
-  if(event.httpMethod === "POST" && event.body) {
+  if(event.httpMethod === "POST") {
 
-    let json = JSON.parse(event.body);
+    // let json = JSON.parse(event.body);
+    let json = event.body;
 
     return {
       statusCode: 200,
       body: JSON.stringify(
         {
-          message: 'Hi, you sent me this:',
+          message: 'Hi, you sent me POST:',
           object: json
         },
         null,
@@ -41,7 +42,7 @@ module.exports.hello = async event => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'Go Serverless v1.0! Sam was here.',
+        message: 'Sam was here.',
         input: event, // Shows the event that the Lambda function received (headers, resource, path, method, pathParameters, stageVariables)
       },
       null,
