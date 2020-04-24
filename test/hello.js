@@ -55,6 +55,10 @@ describe('hello', () => {
     expect(body.object).deep.to.contain({ food: food });
   })
 
+  // it('returns a secret from AWS parameter store', async () => {
+
+  // });
+
   xit('returns environment variables', () => {});
   xit('displays users username', () => {});
 

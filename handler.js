@@ -1,6 +1,11 @@
 'use strict';
+const AWS = require('aws-sdk');
+const servmgr = new AWS.SSM();
 
 module.exports.hello = async event => {
+
+   // Return secret from parameter store
+  const ssmData = await servmgr.getParameter({ Name: process.env.EXAMPLE_KEY_SSM_PATH, WithDecryption: true }).promise();
 
   // If its a POST request and it contains a body
   if(event.httpMethod === "POST") {
@@ -42,8 +47,9 @@ module.exports.hello = async event => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: 'Sam was here.',
-        input: event, // Shows the event that the Lambda function received (headers, resource, path, method, pathParameters, stageVariables)
+        message: 'Sam was here!',
+        sams_secret: ssmData.Parameter.Value,
+        // input: event, // Shows the event that the Lambda function received (headers, resource, path, method, pathParameters, stageVariables)
       },
       null,
       2

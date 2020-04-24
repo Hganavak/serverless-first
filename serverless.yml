@@ -3,22 +3,42 @@ service: serverless-first
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'} # Deploy with sls deploy --stage STAGE (default dev)
+  region: ap-southeast-2
+  endpointType: regional
+  role: arn:aws:iam::416527880812:role/lambda_basic_execution_with_read_only_access_to_SSM
+  stackTags:
+    CeR-Dashboard-MVP: ${self:service}
+    BusinessService: Faculty of Science
+    Department: Centre for eResearch
+    ProjectCode: N/A
+    WikiLink: N/A
+    Application: Serverless Framework Initial Tests
+    CostCentre: N/A
+  environment:
+    # Environment variables available to all functions in this service
+    ENV: ${self:provider.stage}
+    LEVEL: INFO
+    EXAMPLE_KEY_SSM_PATH: /${self:provider.stage}/research-hub/example-key
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ssm:GetParameter
+        - ssm:GetParameters
+      Resource:
+        - "arn:aws:ssm:${self:provider.region}:416527880812:parameter/${self:provider.stage}/research-hub/*"
+    - Effect: Allow
+      Action:
+        - kms:Decrypt
+      Resource:
+        - "arn:aws:kms:ap-southeast-2:416527880812:key/3cf7aeb4-ad8c-4505-a8e3-7d2a556e188d"
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-exclude:
-  - node_modules/**
+package:
+  exclude:
+    - .git/**
+    - .vscode/*
+    - events/*
+    - node_modules/**
 
 functions:
   hello:
