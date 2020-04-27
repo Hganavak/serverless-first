@@ -19,7 +19,8 @@ provider:
     # Environment variables available to all functions in this service
     ENV: ${self:provider.stage}
     LEVEL: INFO
-    EXAMPLE_KEY_SSM_PATH: /${self:provider.stage}/research-hub/example-key
+    # EXAMPLE_KEY_SSM_PATH: /${self:provider.stage}/research-hub/example-key
+    EXAMPLE_KEY: ${ssm:/${self:provider.stage}/research-hub/example-key~true}
   iamRoleStatements:
     - Effect: Allow
       Action:
